@@ -21,3 +21,10 @@ storage/
 test.py
 .venv
 .wvenv
+wvenv
+/wvenv
+*/*.pyc 
+*.pyc
+/__pycache__
+*/__pycache__
+\database\*

@@ -1,13 +1,13 @@
-from config import configure_logger, get_path
-from scanner import Scanner
-from snapshot import Snapshot
+from config import configure_logger, config
+from manager import Manager
 import time
 
 def main() -> None:
     configure_logger()
-    path = get_path()
-    snapshot = Snapshot(path=path)
-    snapshot.snapshot()
+    manager = Manager(
+        path = config._OBSIDIAN_PATH
+    )
+
 
 
     # scanner = Scanner(

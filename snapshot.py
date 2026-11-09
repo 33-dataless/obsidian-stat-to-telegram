@@ -55,7 +55,7 @@ class SnapshotStorage:
         with open("current_snapshot.json", "a", encoding="utf-8") as file:
             json.dump(__current_snapshot__, file, ensure_ascii=False)
  
-class Snapshot:
+class SnapshotManager:
     def __init__(self, path: str):
         if Path(path).exists():
             self.path = Path(path)

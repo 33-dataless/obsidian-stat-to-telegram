@@ -6,17 +6,13 @@ import logging
 
 def configure_logger() -> None:
     logging.basicConfig(level=logging.INFO)
-    
-def get_path():
+
+class Config:
     BASE_DIR = Path(__file__).resolve().parent
     load_dotenv(BASE_DIR / ".env")
-
-    path = getenv("PATH_OBSIDIAN")
-
-    if not path:
-        raise ValueError("PATH_OBSIDIAN not found in .env")
-
-    return Path(path)
+    _OBSIDIAN_PATH = getenv("PATH_OBSIDIAN")
+    _BASE64_KEY = getenv("BASE64_KEY")
+config = Config
 
 def get_current_time():
     return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

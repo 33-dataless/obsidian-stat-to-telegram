@@ -1,5 +1,6 @@
 from os import getenv
 from dotenv import load_dotenv
+from datetime import datetime
 from pathlib import Path
 import logging
 
@@ -16,3 +17,7 @@ def get_path():
         raise ValueError("PATH_OBSIDIAN not found in .env")
 
     return Path(path)
+
+def get_current_time():
+    return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+

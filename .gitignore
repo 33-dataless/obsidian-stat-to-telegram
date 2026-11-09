@@ -24,7 +24,12 @@ test.py
 wvenv
 /wvenv
 */*.pyc 
+__pycache__
+__pycache__/
+*.py[cod]
 *.pyc
 /__pycache__
 */__pycache__
 \database\*
+current_snapshot.json
+*.json

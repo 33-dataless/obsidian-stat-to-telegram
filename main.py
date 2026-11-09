@@ -1,6 +1,6 @@
 from config import configure_logger, get_path
 from scanner import Scanner
-from snapshot import Snapshot
+from snapshot import Snapshot, SnapshotStorage
 
 import time
 
@@ -8,10 +8,8 @@ def main() -> None:
     configure_logger()
     path = get_path()
     snapshot = Snapshot(path=path)
-    current_snapshot = snapshot.create_snapshot()
+    snapshot.snapshot()
 
-    for key, value in current_snapshot.items():
-        print(key, value)
 
     # scanner = Scanner(
     #     path=path,

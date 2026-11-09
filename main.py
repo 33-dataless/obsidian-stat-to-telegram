@@ -1,7 +1,6 @@
 from config import configure_logger, get_path
 from scanner import Scanner
-from snapshot import Snapshot, SnapshotStorage
-
+from snapshot import Snapshot
 import time
 
 def main() -> None:

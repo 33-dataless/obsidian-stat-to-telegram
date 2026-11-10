@@ -2,19 +2,20 @@ from scanner import Scanner
 from snapshot import SnapshotManager
 from planner import Planner
 from crypto import Crypto
+from client import Client
 
 class Manager:
-    def __init__(self, path):
+    def __init__(self, path, url):
         self.path = path
 
-        # SCANER
+        # SCANNER
         self.scanner = Scanner(
             path=self.path,
             recursive=True
         )
 
         self.observer = self.scanner.registrate_observer()
-        self.observer.start()
+        # self.observer.start()
 
         # PLANNER
         self.planner = Planner()
@@ -25,5 +26,13 @@ class Manager:
         # CRYPTO
         self.crypto = Crypto()
 
-    def start(self):
+        # CLIENT 
+        self.url = url
+        self.client = Client(self.url)
+
+    def go(self):
+        # detect changes in obsidian
+
+        # planner
+
         pass

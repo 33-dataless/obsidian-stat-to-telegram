@@ -22,7 +22,7 @@ class EventHandler(FileSystemEventHandler):
 
     def on_changed(self, event):
         pass
-    
+
 
 class Scanner():
     def __init__(self, path, recursive=True):

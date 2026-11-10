@@ -7,6 +7,7 @@ def main() -> None:
     manager = Manager(
         path = config._OBSIDIAN_PATH
     )
+    manager.start()
 
 
 

@@ -33,3 +33,5 @@ __pycache__/
 \database\*
 current_snapshot.json
 *.json
+client_logs
+client_logs\*

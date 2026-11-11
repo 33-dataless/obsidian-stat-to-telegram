@@ -12,6 +12,8 @@ class Config:
     load_dotenv(BASE_DIR / ".env")
     _OBSIDIAN_PATH = getenv("PATH_OBSIDIAN")
     _BASE64_KEY = getenv("BASE64_KEY")
+    _SERVER_URL = getenv("SERVER_URL")
+
 config = Config
 
 def get_current_time():

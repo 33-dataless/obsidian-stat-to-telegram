@@ -3,6 +3,7 @@ from snapshot import SnapshotManager
 from planner import Planner
 from crypto import Crypto
 from client import Client
+from event import Event
 
 class Manager:
     def __init__(self, path, url):
@@ -30,9 +31,9 @@ class Manager:
         self.url = url
         self.client = Client(self.url)
 
-    def go(self):
-        # detect changes in obsidian
-
-        # planner
-
-        pass
+    def commit(self):
+        current_json = self.snapshot_manager.serialize_snapshot()
+        encrypt_json = self.crypto.encrypt(type_event=Event.OBSIDIAN, snapshot=current_json)
+        response_json = self.client.post(encrypt_json)
+        print(response_json)
+        

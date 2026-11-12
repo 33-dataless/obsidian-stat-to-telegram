@@ -3,11 +3,11 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 def configure_logger() -> None:
-    log_dir = Path("./client-logs")
+    log_dir = Path("./client_logs")
 
     log_format = ("~ [ %(asctime)s | %(levelname)-8s | %(name)s | %(message)s ]")
     formatter = logging.Formatter(
-        fmr=log_format,
+        fmt=log_format,
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
@@ -16,7 +16,7 @@ def configure_logger() -> None:
     console_handler.setFormatter(formatter)
 
     file_handler = RotatingFileHandler(
-        filename=dir / "main.log",
+        filename=log_dir / "main.log",
         maxBytes=5*1024*1024,
         backupCount=5,
         encoding="utf-8"

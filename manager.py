@@ -1,5 +1,7 @@
 import threading
 import json
+import logging
+log = logging.getLogger(__name__)
 
 from scanner import Scanner
 from snapshot import SnapshotManager
@@ -15,9 +17,7 @@ class Manager:
         self.timer = None
         self.timer_lock = threading.Lock()
 
-        self.debounce_seconds = 20
-
-
+        self.debounce_seconds = 5
         self.scanner = Scanner(
             path=self.path,
             callback=self.on_file_changed,
@@ -45,7 +45,13 @@ class Manager:
             self.timer.daemon = True
             self.timer.start()
 
+            log.info(
+                f"сommit scheduled %s",
+                event.src_path
+            )
+
     def commit(self):
+
         with self.timer_lock:
             self.timer = None
 
@@ -59,7 +65,12 @@ class Manager:
         )
 
         response_json = self.client.post(encrypt_json)
-        print(F"ОТПРАВЛЕН КОММИТ XD : {response_json}")
+
+        if response_json['status'] == 'success':
+            log.info("post commit succes")
+        else:
+            log.exception("post commit not completed!!")
+        
 
     def start(self):
         self.observer.start()

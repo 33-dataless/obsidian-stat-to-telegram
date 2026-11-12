@@ -1,11 +1,10 @@
 from config import config
 from manager import Manager
 from logger import configure_logger
+from logging import getLogger
 import time
 
-def task(manager: Manager):
-    manager.commit()
-
+log = getLogger(__name__)
 
 def main() -> None:
     configure_logger()
@@ -16,17 +15,14 @@ def main() -> None:
     )
 
     manager.start()
-
+    log.info('~ application start')
     try:
         while True:
-            import time
             time.sleep(1)
-            print("wait change")
+            log.info("...")
     except KeyboardInterrupt:
         manager.stop()
     
-
-
 if __name__ == "__main__":
     main()
     

@@ -1,8 +1,10 @@
 
 from pathlib import Path
 from config import get_current_time
+from logging import getLogger
 import json
 
+log = getLogger(__name__)
 
 class Parser:
     def __init__(self, path: Path):
@@ -43,6 +45,7 @@ class SnapshotManager:
 
         with open(self.path_current_snapshot, "w", encoding="utf-8") as file:
             json.dump(snapshot, file, ensure_ascii=False, indent=4)
+        log.debug("snapshot created")
 
         return snapshot
 

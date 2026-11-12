@@ -1,49 +1,47 @@
-from watchdog import events
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import logging
-import time
-
-logger = logging.getLogger(__name__)
 
 class EventHandler(FileSystemEventHandler):
-    def on_any_event(self, event):
-        print(
-            f"Type: {event.event_type}",
-            f"Path: {event.src_path}",
-            f"Is directory: {event.is_directory}"
-        )
+
+    def __init__(self, callback):
+        self.callback = callback
+
+    def on_modified(self, event):
+        self._handle(event)
 
     def on_created(self, event):
-        pass
+        self._handle(event)
 
     def on_deleted(self, event):
-        pass
+        self._handle(event)
 
-    def on_changed(self, event):
-        pass
+    def on_moved(self, event):
+        self._handle(event)
+
+    def _handle(self, event):
+
+        if event.is_directory:
+            return
+
+        if event.src_path.endswith(".md"):
+            self.callback(event)
 
 
-class Scanner():
-    def __init__(self, path, recursive=True):
-        self.__path__ = path
-        self.__recursive__ = recursive
-        self.__event_handlers__ = EventHandler()
+class Scanner:
+
+    def __init__(self, path, callback, recursive=True):
+        self.path = path
+        self.recursive = recursive
+
+        self.event_handlers = EventHandler(callback)
 
     def registrate_observer(self):
         observer = Observer()
-        if self.__path__:
-            observer.schedule(
-                self.__event_handlers__,
-                path=self.__path__,
-                recursive=self.__recursive__
-            )
+
+        observer.schedule(
+            self.event_handlers,
+            path=self.path,
+            recursive=self.recursive
+        )
+
         return observer
-        
-    def get_path(self):
-        return self.__path__
-    
-
-
-    
-        

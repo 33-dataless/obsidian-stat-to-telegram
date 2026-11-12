@@ -2,10 +2,6 @@ from os import getenv
 from dotenv import load_dotenv
 from datetime import datetime
 from pathlib import Path
-import logging
-
-def configure_logger() -> None:
-    logging.basicConfig(level=logging.INFO)
 
 class Config:
     BASE_DIR = Path(__file__).resolve().parent

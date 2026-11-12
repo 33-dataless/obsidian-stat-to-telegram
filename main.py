@@ -1,6 +1,6 @@
-from config import configure_logger, config
+from config import config
 from manager import Manager
-from planner import Planner
+from logger import configure_logger
 import time
 
 def task(manager: Manager):
@@ -15,19 +15,16 @@ def main() -> None:
         url=config._SERVER_URL
     )
 
-    task(manager)
+    manager.start()
+
+    try:
+        while True:
+            import time
+            time.sleep(1)
+            print("wait change")
+    except KeyboardInterrupt:
+        manager.stop()
     
-    planner = Planner()
-
-    planner.create_task(
-        task=task,
-        type="cron",
-        hour=8,
-        minute=0,
-        kwargs={"manager": manager},
-    )
-
-    planner.start_planner()
 
 
 if __name__ == "__main__":

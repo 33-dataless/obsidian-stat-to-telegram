@@ -10,12 +10,13 @@ class Crypto:
         self._key = base64.b64decode(config._BASE64_KEY)
         self._cipher = Aead(self._key)
 
-    def encrypt(self, type_event: Event, snapshot: str):
+    def encrypt(self, type_event: str, snapshot: dict):
         payload = {
-            "type_event": type_event,
+            "event": type_event,
             "snapshot": snapshot
         }
-
+    
         raw = json.dumps(payload).encode("utf-8")
         encrypted = self._cipher.encrypt(raw)
+    
         return encrypted

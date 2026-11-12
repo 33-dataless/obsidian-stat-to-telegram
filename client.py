@@ -8,9 +8,12 @@ class Client:
     def post(self, encrypted):
         response = httpx.post(
             self._url,
-            json=encrypted,
+            content=bytes(encrypted),
             headers={
-                "Authorization": config._BASE64_KEY
-            }
+                "Authorization": config._BASE64_KEY,
+            },
+            trust_env=False
         )
-        return response
+        response.raise_for_status()
+        return response.json()
+    

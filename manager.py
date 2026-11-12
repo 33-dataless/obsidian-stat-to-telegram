@@ -5,6 +5,8 @@ from crypto import Crypto
 from client import Client
 from event import Event
 
+import json
+
 class Manager:
     def __init__(self, path, url):
         self.path = path
@@ -18,9 +20,6 @@ class Manager:
         self.observer = self.scanner.registrate_observer()
         # self.observer.start()
 
-        # PLANNER
-        self.planner = Planner()
-
         # SNAPSHOT
         self.snapshot_manager = SnapshotManager(self.path)
 
@@ -33,7 +32,13 @@ class Manager:
 
     def commit(self):
         current_json = self.snapshot_manager.serialize_snapshot()
-        encrypt_json = self.crypto.encrypt(type_event=Event.OBSIDIAN, snapshot=current_json)
+
+        snapshot = json.loads(current_json)
+
+        encrypt_json = self.crypto.encrypt(
+            type_event=Event.OBSIDIAN.value,
+            snapshot=snapshot
+        )
+
         response_json = self.client.post(encrypt_json)
         print(response_json)
-        

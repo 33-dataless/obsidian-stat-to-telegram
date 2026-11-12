@@ -2,7 +2,7 @@ from enum import Enum
 
 '''for future'''
 class Event(Enum):
-    OBSIDIAN="OBSIDIAN"
+    OBSIDIAN="obsidian"
     # RESUME="RESUME"
     # CHESS="CHESS"
     # VS_CODE="VS_CODE"

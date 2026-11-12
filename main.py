@@ -14,6 +14,8 @@ def main() -> None:
         path=config._OBSIDIAN_PATH,
         url=config._SERVER_URL
     )
+
+    task(manager)
     
     planner = Planner()
 
